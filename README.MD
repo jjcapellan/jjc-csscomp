@@ -1,3 +1,5 @@
+![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/jjcapellan/jjc-csscomp.svg)
+![GitHub license](https://img.shields.io/github/license/jjcapellan/jjc-csscomp.svg)
 # CSSCOMP  
 Golang module to minify css strings.  
 
