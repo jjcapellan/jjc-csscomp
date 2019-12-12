@@ -68,6 +68,15 @@ func TestRmSemicolon(t *testing.T) {
 	}
 }
 
+func TestMsToSecond(t *testing.T) {
+	str := "h1{font-size:2em; margin:0.67em 0; duration: 220ms }"
+	wanted := "h1{font-size:2em; margin:0.67em 0; duration: 0.22s }"
+	result := msToSecond(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
+}
+
 func TestGet(t *testing.T) {
 	result := Get(fixtures)
 	fmt.Println("bytes original--> ", len(fixtures), " bytes compressed--> ", len(result))
@@ -98,6 +107,7 @@ var fixtures string = `.cc_banner-wrapper {
     transition: font-size 200ms;
     margin: 0;
     padding: 0;
+    duration: 220ms
     line-height: 1.5em
 }
 

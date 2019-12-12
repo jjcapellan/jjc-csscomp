@@ -154,11 +154,28 @@ func rmSemicolon(str string) string {
 	return str
 }
 
+func msToSecFunc(str string) string {
+	numstr := strings.TrimRight(str, "ms")
+	ms, _ := strconv.Atoi(numstr)
+	secs := float32(ms) / float32(1000)
+	secstr := fmt.Sprint(secs)
+	return secstr + "s"
+}
+
+// Converts ms to s
+func msToSecond(str string) string {
+	rgx := regexp.MustCompile(`[0-9]*ms`)
+	str = rgx.ReplaceAllStringFunc(str, msToSecFunc)
+	return str
+}
+
 // Get returns the minified css string
 func Get(txt string) string {
 	str := rmComments(txt)
 
 	str = rmJumps(str)
+
+	str = msToSecond(str)
 
 	str = rmLeadingZeros(str)
 
