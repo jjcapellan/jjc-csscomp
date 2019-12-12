@@ -59,6 +59,15 @@ func TestRmQuotes(t *testing.T) {
 	}
 }
 
+func TestRmSemicolon(t *testing.T) {
+	str := "h1{font-size:2em; margin:0.67em 0; }"
+	wanted := "h1{font-size:2em; margin:0.67em 0}"
+	result := rmSemicolon(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
+}
+
 func TestGet(t *testing.T) {
 	result := Get(fixtures)
 	fmt.Println("bytes original--> ", len(fixtures), " bytes compressed--> ", len(result))

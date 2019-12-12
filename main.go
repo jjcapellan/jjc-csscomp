@@ -147,6 +147,13 @@ func minColors(str string) string {
 	return str
 }
 
+// Deletes semicolon
+func rmSemicolon(str string) string {
+	rgx := regexp.MustCompile(`;\s*\}`)
+	str = rgx.ReplaceAllString(str, "}")
+	return str
+}
+
 // Get returns the minified css string
 func Get(txt string) string {
 	str := rmComments(txt)
@@ -160,6 +167,8 @@ func Get(txt string) string {
 	str = rmZeroSufix(str)
 
 	str = rmQuotes(str)
+
+	str = rmSemicolon(str)
 
 	str = rmRgb(str)
 
