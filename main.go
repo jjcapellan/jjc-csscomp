@@ -164,7 +164,7 @@ func msToSecFunc(str string) string {
 
 // Converts ms to s
 func msToSecond(str string) string {
-	rgx := regexp.MustCompile(`[0-9]*ms`)
+	rgx := regexp.MustCompile(`[0-9]+ms`)
 	str = rgx.ReplaceAllStringFunc(str, msToSecFunc)
 	return str
 }

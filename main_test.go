@@ -75,6 +75,20 @@ func TestMsToSecond(t *testing.T) {
 	if result != wanted {
 		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
 	}
+	str = `{
+        -webkit-transform: translateY(66px);
+        -ms-transform: translateY(66px);
+        transform: translateY(66px)
+    }`
+	wanted = `{
+        -webkit-transform: translateY(66px);
+        -ms-transform: translateY(66px);
+        transform: translateY(66px)
+    }`
+	result = msToSecond(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
 }
 
 func TestGet(t *testing.T) {
