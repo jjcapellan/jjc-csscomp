@@ -118,8 +118,8 @@ func rmLeadingZeros(str string) string {
 
 // Deletes quotes when possible
 func rmQuotes(str string) string {
-	rgx := regexp.MustCompile(`type\=\"[^\"]*\"`)
-	str = rgx.ReplaceAllStringFunc(str, quitQuotes)
+	rgx := regexp.MustCompile(`\[[^\[\]]+\=\"[^\"]*\"\]`)
+	str = rgx.ReplaceAllStringFunc(str, quitQuoteIfNoSpace)
 
 	rgx = regexp.MustCompile(`font-family:[^;]*;`)
 	str = rgx.ReplaceAllStringFunc(str, quitffQuotes)

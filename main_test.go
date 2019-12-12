@@ -41,6 +41,15 @@ func TestRmSpaces(t *testing.T) {
 	}
 }
 
+func TestRmQuotes(t *testing.T) {
+	str := `id1[prop*="abc def"], id2, id3[prop="gdsh"], .class1`
+	wanted := `id1[prop*="abc def"], id2, id3[prop=gdsh], .class1`
+	result := rmQuotes(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
+}
+
 func TestGet(t *testing.T) {
 	result := Get(fixtures)
 	fmt.Println("bytes original--> ", len(fixtures), " bytes compressed--> ", len(result))
