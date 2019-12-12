@@ -20,14 +20,15 @@ func quitQuotes(str string) string {
 }
 
 func quitQuoteIfNoSpace(str string) string {
+	str = strings.TrimSpace(str)
 	if strings.Index(str, " ") == -1 {
 		return strings.ReplaceAll(str, "\"", "")
 	}
 	return str
 }
 
-func quitffQuotes(str string) string {
-	rgx := regexp.MustCompile(`[:\,]\"[^\"]*\"[\,;]`)
+func rmffQuotes(str string) string {
+	rgx := regexp.MustCompile(`\s*\"[^\"]*\"\s*[\,;]`)
 	str = rgx.ReplaceAllStringFunc(str, quitQuoteIfNoSpace)
 	return str
 }
@@ -127,7 +128,7 @@ func rmQuotes(str string) string {
 	str = rgx.ReplaceAllStringFunc(str, quitQuoteIfNoSpace)
 
 	rgx = regexp.MustCompile(`font-family:[^;]*;`)
-	str = rgx.ReplaceAllStringFunc(str, quitffQuotes)
+	str = rgx.ReplaceAllStringFunc(str, rmffQuotes)
 
 	return str
 }

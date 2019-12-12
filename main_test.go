@@ -6,6 +6,7 @@ import (
 )
 
 var css string = `h1 { font-size: 2em; margin: 0.67em 0; }`
+var css2 string = `font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;`
 
 func TestRgbToHex(t *testing.T) {
 	str := "rgb(50,255,120)"
@@ -47,6 +48,12 @@ func TestRmQuotes(t *testing.T) {
 	str := `id1[prop*="abc def"], id2, id3[prop="gdsh"], .class1`
 	wanted := `id1[prop*="abc def"], id2, id3[prop=gdsh], .class1`
 	result := rmQuotes(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
+	str = `font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;`
+	wanted = `font-family:"Helvetica Neue Light",HelveticaNeue-Light,"Helvetica Neue", Calibri, Helvetica, Arial;`
+	result = rmQuotes(str)
 	if result != wanted {
 		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
 	}
