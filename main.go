@@ -109,10 +109,15 @@ func rmBeginSpaces(str string) string {
 	return str
 }
 
+// Preserve first char
+func rmLeadZeroFunc(str string) string {
+	return string(str[0]) + " ."
+}
+
 // Deletes leading zeros
 func rmLeadingZeros(str string) string {
 	rgx := regexp.MustCompile(`[^0-9]0\.`)
-	str = rgx.ReplaceAllString(str, " .")
+	str = rgx.ReplaceAllStringFunc(str, rmLeadZeroFunc)
 	return str
 }
 

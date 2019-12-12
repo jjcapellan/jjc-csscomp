@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+var css string = `h1 { font-size: 2em; margin: 0.67em 0; }`
+
 func TestRgbToHex(t *testing.T) {
 	str := "rgb(50,255,120)"
 	wanted := "#32ff78"
@@ -24,8 +26,8 @@ func TestMinColor(t *testing.T) {
 }
 
 func TestRmLeadingZeros(t *testing.T) {
-	str := "prop: 0.456 10.2;"
-	wanted := "prop: .456 10.2;"
+	str := "h1{font-size:2em;margin:0.67em 0;}"
+	wanted := "h1{font-size:2em;margin: .67em 0;}"
 	result := rmLeadingZeros(str)
 	if result != wanted {
 		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
@@ -33,8 +35,8 @@ func TestRmLeadingZeros(t *testing.T) {
 }
 
 func TestRmSpaces(t *testing.T) {
-	str := "  id1, id2, id3, .class1 .class2 { prop : 12px ; prop:  15px 10px; }  "
-	wanted := " id1,id2,id3,.class1 .class2{prop:12px;prop:15px 10px;}"
+	str := css
+	wanted := "h1{font-size:2em;margin:0.67em 0;}"
 	result := rmSpaces(str)
 	if result != wanted {
 		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
