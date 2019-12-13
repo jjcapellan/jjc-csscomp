@@ -65,26 +65,20 @@ func rmZeroSufix(str string) string {
 	return str
 }
 
-// Deletes spaces for one match
-func rmSpacesFunc(str string) string {
-	if string(str[0]) == " " {
-		str = string(str[len(str)-1])
-	} else {
-		str = string(str[0])
-	}
-	return str
+func rmInnerSpaces(str string) string {
+	return strings.ReplaceAll(str, " ", "")
 }
 
 // Deletes spaces for all text
 func rmSpaces(str string) string {
-	rgx := regexp.MustCompile(`\s+[\{\}\,;\=:\)\(\]\[\+]`)
-	str = rgx.ReplaceAllStringFunc(str, rmSpacesFunc)
-
-	rgx = regexp.MustCompile(`[\{\}\,;\=:\)\(\]\[\+]\s+`)
-	str = rgx.ReplaceAllStringFunc(str, rmSpacesFunc)
+	rgx := regexp.MustCompile(`\s*[\{\}\,;\=:\)\(\]\[\+\>\~]\s*`)
+	str = rgx.ReplaceAllStringFunc(str, strings.TrimSpace)
 
 	rgx = regexp.MustCompile(`\s\s+`)
 	str = rgx.ReplaceAllString(str, " ")
+
+	rgx = regexp.MustCompile(`\-\s+\.`)
+	str = rgx.ReplaceAllStringFunc(str, rmInnerSpaces)
 
 	return str
 }
@@ -169,6 +163,15 @@ func msToSecond(str string) string {
 	return str
 }
 
+func fontWeightToNumber(str string) string {
+	rgx := regexp.MustCompile(`weight:normal`)
+	str = rgx.ReplaceAllString(str, "weight:400")
+
+	rgx = regexp.MustCompile(`weight:bold`)
+	str = rgx.ReplaceAllString(str, "weight:700")
+	return str
+}
+
 // Get returns the minified css string
 func Get(txt string) string {
 	str := rmComments(txt)
@@ -190,6 +193,8 @@ func Get(txt string) string {
 	str = rmRgb(str)
 
 	str = minColors(str)
+
+	str = fontWeightToNumber(str)
 
 	return str
 }
