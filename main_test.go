@@ -68,6 +68,15 @@ func TestRmSemicolon(t *testing.T) {
 	}
 }
 
+func TestRmComments(t *testing.T) {
+	str := "h1{font-size:2em;/* this is a comment */margin:0.67em 0; }"
+	wanted := "h1{font-size:2em;margin:0.67em 0; }"
+	result := rmComments(str)
+	if result != wanted {
+		t.Errorf("Incorrect, got: %s, want: %s.", result, wanted)
+	}
+}
+
 func TestMsToSecond(t *testing.T) {
 	str := "h1{font-size:2em; margin:0.67em 0; duration: 220ms }"
 	wanted := "h1{font-size:2em; margin:0.67em 0; duration: 0.22s }"

@@ -85,8 +85,8 @@ func rmSpaces(str string) string {
 
 // Deletes all comments
 func rmComments(str string) string {
-	rgx := regexp.MustCompile(`url\s*\(\s*\"[^\"]*\"\s*\)`)
-	str = rgx.ReplaceAllStringFunc(str, quitQuotes)
+	rgx := regexp.MustCompile(`\/\*.*\*\/`)
+	str = rgx.ReplaceAllString(str, "")
 	return str
 }
 
@@ -123,6 +123,9 @@ func rmQuotes(str string) string {
 
 	rgx = regexp.MustCompile(`font-family:[^;]*;`)
 	str = rgx.ReplaceAllStringFunc(str, rmffQuotes)
+
+	rgx = regexp.MustCompile(`url\s*\(\s*\"[^\"]*\"\s*\)`)
+	str = rgx.ReplaceAllStringFunc(str, quitQuotes)
 
 	return str
 }
